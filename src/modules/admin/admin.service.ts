@@ -1,0 +1,87 @@
+import { prisma } from "../../lib/prisma.js"
+import { blockedStatus } from "../../utils/blockedStatus.js";
+import { IUpdateUserStatusPayload } from "./admin.interface.js";
+
+const getAllUsers = async (userId: string) => {
+
+    const Admin = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: userId
+        }
+    })
+
+    blockedStatus(Admin?.activeStatus)
+
+    const users = await prisma.user.findMany({
+        omit: {
+            password: true
+        },
+        include: {
+            properties: {
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    rentAmount: true,
+                }
+            },
+            rentalRequests: {
+                select: {
+                    id: true,
+                    message: true,
+                    tenant: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            }
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
+
+    return users;
+}
+
+const updateUserStatus = async (userId: string, payload: IUpdateUserStatusPayload, adminId: string) => {
+
+    const admin = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: adminId
+        }
+    })
+    blockedStatus(admin.activeStatus);
+
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    })
+    if (!user) {
+        throw new Error("User is not found.");
+    }
+    if (user.activeStatus === payload.status) {
+        throw new Error("User's active status is up todate");
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: {
+            id: userId
+        },
+        data: {
+            activeStatus: payload.status
+        }
+    })
+
+    return updatedUser;
+}
+
+export const adminServices = {
+    getAllUsers,
+    updateUserStatus
+}

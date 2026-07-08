@@ -1,0 +1,28 @@
+enum Role {
+    ADMIN
+    LANDLORD
+    TENANT
+}
+
+enum ActiveStatus {
+    ACTIVE
+    BLOCKED
+}
+
+enum RentalRequestStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    ACTIVE
+    COMPLETED
+}
+
+enum PaymentProvider {
+    STRIPE
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+}

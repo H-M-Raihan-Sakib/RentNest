@@ -1,0 +1,80 @@
+import { NextFunction, Request, Response } from "express";
+import { catchAsync } from "../../utils/catchAsync.js";
+import { userServices } from "./user.service.js";
+import { sendResponse } from "../../utils/sendResponse.js";
+import httpStatus from "http-status";
+
+const registerUser = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const payload = req.body;
+        const user = await userServices.registerUser(payload);
+
+        sendResponse(res, {
+            success: true,
+            statuCode: httpStatus.OK,
+            message: "Congratulations! User registered successfully!",
+            data: {
+                user
+            }
+        })
+    }
+)
+
+const loginUser = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const payload = req.body;
+
+        const { accessToken, refreshToken } = await userServices.loginUser(payload);
+
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24
+        })
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24 * 7
+        })
+
+        sendResponse(res, {
+            success: true,
+            statuCode: httpStatus.OK,
+            message: "User loged in successfully !",
+            data: {
+                accessToken, refreshToken
+            }
+        })
+    }
+)
+
+const getMyInfo = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const user = await userServices.getMyInfo(req.user?.id as string);
+
+        sendResponse(res, {
+            success: true,
+            statuCode: httpStatus.OK,
+            message: "User info retrieved successfully !",
+            data: {
+                user
+            }
+        })
+    }
+)
+
+const updateMyProfile = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+
+    }
+)
+
+export const userControllers = {
+    registerUser,
+    loginUser,
+    getMyInfo,
+    updateMyProfile
+}
