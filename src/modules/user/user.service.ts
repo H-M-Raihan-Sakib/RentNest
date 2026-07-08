@@ -3,7 +3,7 @@ import { ILoginPayload, IRegisterInfoPayload, IUpdateProfile } from "./user.inte
 import bcrypt from "bcryptjs";
 import config from "../../config/index.js";
 import { jwtUtils } from "../../utils/jwt.js";
-import { SignOptions } from "jsonwebtoken";
+import { JwtPayload, SignOptions } from "jsonwebtoken";
 
 const registerUser = async (payload: IRegisterInfoPayload) => {
     const { email, name, password, role } = payload;
@@ -128,9 +128,42 @@ const updateMyProfile = async (userId: string, payload: IUpdateProfile) => {
     return updatedProfile;
 }
 
+const refreshToken = async (refreshToken: string) => {
+    const verifiedRefreshToken = jwtUtils.verifyToken(refreshToken, config.jwt_refresh_secret);
+    if (!verifiedRefreshToken.success) {
+        throw new Error(verifiedRefreshToken.message);
+    }
+
+    const { id } = verifiedRefreshToken.data as JwtPayload;
+
+    const user = await prisma.user.findFirstOrThrow({
+        where: { id }
+    });
+
+    if (user.activeStatus === "BLOCKED") {
+        throw new Error("User is Blocked!")
+    }
+
+    const jwtPayload = {
+        id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }
+
+    const accessToken = jwtUtils.createToken(
+        jwtPayload,
+        config.jwt_access_secret,
+        config.jwt_access_expires_in as SignOptions
+    );
+
+    return { accessToken }
+}
+
 export const userServices = {
     registerUser,
     loginUser,
     getMyInfo,
-    updateMyProfile
+    updateMyProfile,
+    refreshToken
 }

@@ -12,16 +12,13 @@ router.get(
     auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
     userControllers.getMyInfo
 );
-router.patch(
-    "/my-profile",
-    auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
-    userControllers.updateMyProfile
-)
 
 router.put(
     "/my-profile",
     auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
     userControllers.updateMyProfile
 )
+
+router.post("/refresh-token", userControllers.refreshToken);
 
 export const userRoutes = router;
