@@ -81,7 +81,32 @@ const updateUserStatus = async (userId: string, payload: IUpdateUserStatusPayloa
     return updatedUser;
 }
 
+const createCategory = async (categoryName: string) => {
+    const toLower = categoryName.toLowerCase();
+    const isCategoryExist = await prisma.category.findFirst({
+        where: {
+            name: {
+                equals: toLower,
+                mode: "insensitive"
+            }
+        }
+    });
+
+    if (isCategoryExist) {
+        throw new Error("This category is already exist.");
+    }
+
+    const category = await prisma.category.create({
+        data: {
+            name: categoryName
+        }
+    })
+
+    return category;
+}
+
 export const adminServices = {
     getAllUsers,
-    updateUserStatus
+    updateUserStatus,
+    createCategory
 }

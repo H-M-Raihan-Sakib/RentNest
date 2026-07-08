@@ -17,4 +17,10 @@ router.patch(
     adminControllers.updateUserStatus
 )
 
+router.post(
+    "/create-category",
+    auth(Role.ADMIN),
+    adminControllers.createCategory
+)
+
 export const adminRoutes = router;
