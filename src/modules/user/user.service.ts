@@ -97,6 +97,35 @@ const getMyInfo = async (userId: string) => {
 
 const updateMyProfile = async (userId: string, payload: IUpdateProfile) => {
 
+    if (!payload) {
+        throw new Error("Please enter the request body, 'name' or 'passord' ")
+    }
+
+    const { name, password } = payload;
+    let hashedPassword;
+    if (password) {
+        hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_round));
+    } else {
+        const user = await prisma.user.findUniqueOrThrow({
+            where: {
+                id: userId
+            }
+        })
+
+        hashedPassword = user.password;
+    }
+    const updatedProfile = await prisma.user.update({
+        where: {
+            id: userId
+        }, data: {
+            name,
+            password: hashedPassword
+        },
+        omit: {
+            password: true
+        }
+    })
+    return updatedProfile;
 }
 
 export const userServices = {

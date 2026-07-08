@@ -18,4 +18,10 @@ router.patch(
     userControllers.updateMyProfile
 )
 
+router.put(
+    "/my-profile",
+    auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
+    userControllers.updateMyProfile
+)
+
 export const userRoutes = router;
