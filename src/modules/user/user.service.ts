@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import config from "../../config/index.js";
 import { jwtUtils } from "../../utils/jwt.js";
 import { JwtPayload, SignOptions } from "jsonwebtoken";
+import { ActiveStatus } from "../../../generated/prisma/enums.js";
 
 const registerUser = async (payload: IRegisterInfoPayload) => {
     const { email, name, password, role } = payload;
@@ -160,10 +161,40 @@ const refreshToken = async (refreshToken: string) => {
     return { accessToken }
 }
 
+const deleteMyProfile = async (userId: string) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: userId,
+        },
+    });
+
+    if (user.role === 'TENANT') {
+        const updatedTenant = await prisma.user.update({
+            where: { id: userId },
+            data: {
+                activeStatus: ActiveStatus.DELETED,
+                name: "Deleted Profile",
+                email: `deleted_${user.id}@deleted.local`,
+            },
+        });
+
+        return updatedTenant;
+    }
+
+    const deletedUser = await prisma.user.delete({
+        where: {
+            id: userId,
+        },
+    });
+
+    return null;
+};
+
 export const userServices = {
     registerUser,
     loginUser,
     getMyInfo,
     updateMyProfile,
-    refreshToken
+    refreshToken,
+    deleteMyProfile
 }

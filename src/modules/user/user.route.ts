@@ -21,4 +21,10 @@ router.put(
 
 router.post("/refresh-token", userControllers.refreshToken);
 
+router.delete(
+    "/delete",
+    auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
+    userControllers.deleteProfile
+)
+
 export const userRoutes = router;

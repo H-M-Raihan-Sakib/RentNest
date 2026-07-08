@@ -106,10 +106,26 @@ const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFu
     })
 })
 
+const deleteProfile = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const userId = req.user?.id;
+
+        const result = await userServices.deleteMyProfile(userId as string);
+
+        sendResponse(res, {
+            statuCode: 200,
+            success: true,
+            message: "Profile deleted successfully.",
+            data: result,
+        });
+    }
+)
+
 export const userControllers = {
     registerUser,
     loginUser,
     getMyInfo,
     updateMyProfile,
-    refreshToken
+    refreshToken,
+    deleteProfile
 }
