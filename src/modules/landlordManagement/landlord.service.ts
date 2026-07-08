@@ -16,6 +16,7 @@ const createNewPost = async (payload: ICreateRentPayload, userId: string) => {
     if (user.role !== 'LANDLORD') {
         throw new Error("You are not a landlord. So, you can not create a property listing.");
     }
+
     blockedStatus(user.activeStatus);
 
     const categoryName = payload.categoryName;
@@ -24,16 +25,9 @@ const createNewPost = async (payload: ICreateRentPayload, userId: string) => {
             name: categoryName
         }
     })
-    let categoryId;
+
     if (!category) {
-        const newCategory = await prisma.category.create({
-            data: {
-                name: categoryName
-            }
-        })
-        categoryId = newCategory.id;
-    } else {
-        categoryId = category.id;
+        throw new Error("This category does not exist. Please check the category list first.");
     }
 
     const createdProperty = await prisma.property.create({
@@ -44,7 +38,7 @@ const createNewPost = async (payload: ICreateRentPayload, userId: string) => {
             address: payload.address,
             location: payload.location,
             rentAmount: Number(payload.rentAmount),
-            categoryId: categoryId,
+            categoryId: category.id,
         }
     })
 
