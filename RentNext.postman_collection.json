@@ -759,6 +759,14 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "notFound route",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
     }
   ]
 }
