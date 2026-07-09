@@ -33,3 +33,13 @@ https://rent-nest-chi.vercel.app/
 > **Note:** This project is tested using the provided Postman Collection.
 
 ---
+
+
+# 🗄️ Entity Relationship Diagram (ERD)
+
+The database schema for Rental Marketplace API is illustrated below.
+
+
+![ERD Diagram](./ERD.png)
+
+---
