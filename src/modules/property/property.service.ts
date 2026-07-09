@@ -3,7 +3,7 @@ import { prisma } from "../../lib/prisma.js";
 import { IPropertyQuery } from "./property.interface.js"
 
 const getAllProperties = async (query: IPropertyQuery) => {
-    const { location, maxPrice, minPrice, type, isAvailable } = query;
+    const { location, maxPrice, minPrice, type, isAvailable, amenities } = query;
 
     const whereConditions: PropertyWhereInput = {};
 
@@ -56,6 +56,21 @@ const getAllProperties = async (query: IPropertyQuery) => {
             createdAt: "desc"
         }
     })
+
+    if (!amenities) {
+        return properties;
+    }
+
+    const amenitiesArray = Array.isArray(amenities) ? amenities : JSON.parse(amenities as string);
+
+    const matchedProperties = properties.filter(property =>
+        amenitiesArray.some((amenity: string) =>
+            property.amenities.some(dbAmenity =>
+                dbAmenity.toLowerCase() === amenity.toLowerCase()
+            )
+        )
+    );
+
 
     return properties;
 }

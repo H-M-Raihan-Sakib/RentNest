@@ -6,6 +6,8 @@ model Property {
     location    String
     rentAmount  Int
 
+    amenities String[] @default([])
+
     isAvailable Boolean @default(true)
 
     createdAt DateTime @default(now())

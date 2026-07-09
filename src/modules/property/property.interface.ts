@@ -4,4 +4,5 @@ export interface IPropertyQuery {
     minPrice?: number;
     type?: string;
     isAvailable?: string;
+    amenities?: string;
 }
