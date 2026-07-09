@@ -40,6 +40,6 @@ https://rent-nest-chi.vercel.app/
 The database schema for Rental Marketplace API is illustrated below.
 
 
-![ERD Diagram](./ERD.png)
+![ERD Diagram](./ERD.jpeg)
 
 ---
