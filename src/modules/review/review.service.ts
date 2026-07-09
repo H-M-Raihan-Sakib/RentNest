@@ -36,6 +36,10 @@ const createReview = async (tenantId: string, payload: TReview) => {
         );
     }
 
+    if (payload.rating <= 1 || payload.rating > 5) {
+        throw new Error("Rating must be between 1 to 5");
+    }
+
     const review = await prisma.review.create({
         data: {
             rating: payload.rating,
