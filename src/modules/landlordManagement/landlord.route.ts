@@ -17,9 +17,15 @@ router.put(
     landlordControllers.updateProperty
 )
 
+router.get(
+    "/my-properties",
+    auth(Role.LANDLORD),
+    landlordControllers.myProperty
+)
+
 router.delete(
     "/properties/:id",
-    auth(Role.LANDLORD, Role.ADMIN, Role.TENANT),
+    auth(Role.LANDLORD),
     landlordControllers.deleteProperty
 )
 
@@ -27,6 +33,12 @@ router.patch(
     "/requests/:id",
     auth(Role.LANDLORD),
     landlordControllers.approveORreject
+)
+
+router.get(
+    "/tenant/:id",
+    auth(Role.LANDLORD, Role.ADMIN),
+    landlordControllers.tenantHistory
 )
 
 export const landlordRoutes = router;

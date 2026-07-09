@@ -72,6 +72,23 @@ const deleteProperty = catchAsync(
     }
 )
 
+const myProperty = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const userId = req.user?.id as string;
+
+        const properties = await landlordServices.myProperty(userId);
+
+        sendResponse(res, ({
+            success: true,
+            statuCode: httpStatus.OK,
+            message: "Properties retrieved successfully !!",
+            data: {
+                properties
+            }
+        }))
+    }
+)
+
 const approveORreject = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const rentalRequestId = req.params.id;
@@ -95,10 +112,28 @@ const approveORreject = catchAsync(
     }
 )
 
+const tenantHistory = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const tenantId = req.params.id;
+
+        const tenant = await landlordServices.tenantHistory(tenantId as string);
+
+        sendResponse(res, ({
+            success: true,
+            statuCode: httpStatus.OK,
+            message: "Tenant history retrieved successfully !!",
+            data: {
+                tenant
+            }
+        }))
+    }
+)
 
 export const landlordControllers = {
     createNewPost,
     updateProperty,
     deleteProperty,
-    approveORreject
+    myProperty,
+    approveORreject,
+    tenantHistory
 }

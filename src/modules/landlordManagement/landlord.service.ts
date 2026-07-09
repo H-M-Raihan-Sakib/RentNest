@@ -170,6 +170,34 @@ const deleteProperty = async (propertyId: string, userId: string) => {
     return deletedProperty;
 }
 
+const myProperty = async (userId: string) => {
+    const properties = await prisma.property.findMany({
+        where: {
+            landlordId: userId
+        }, include: {
+            rentalRequests: {
+                select: {
+                    message: true,
+                    moveInDate: true,
+                    tenant: {
+                        select: {
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            }, reviews: {
+                select: {
+                    rating: true,
+                    comment: true
+                }
+            }
+        }
+    })
+
+    return properties;
+}
+
 const approveORreject = async (requestId: string, userId: string, payload: IStatusApprovedOrRejectPayload) => {
     const request = await prisma.rentalRequest.findUnique({
         where: {
@@ -223,9 +251,50 @@ const approveORreject = async (requestId: string, userId: string, payload: IStat
     return updatedStatus;
 }
 
+const tenantHistory = async (tenantId: string) => {
+    const isTenantExist = await prisma.user.findUnique({
+        where: {
+            id: tenantId
+        },
+        omit: {
+            password: true,
+            id: true
+        },
+        include: {
+            rentalRequests: {
+                select: {
+                    message: true,
+                    property: {
+                        select: {
+                            title: true,
+                            description: true,
+                            rentAmount: true,
+                            reviews: {
+                                select: {
+                                    rating: true,
+                                    comment: true,
+                                    createdAt: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    if (!isTenantExist) {
+        throw new Error("This tenant does not exist.")
+    }
+
+    return isTenantExist;
+}
+
 export const landlordServices = {
     createNewPost,
     updateProperty,
     deleteProperty,
-    approveORreject
+    myProperty,
+    approveORreject,
+    tenantHistory
 }
