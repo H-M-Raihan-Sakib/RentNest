@@ -16,3 +16,20 @@
 ## 📖 Project Description
 
 **RentNest API** is a RESTful backend application built with **Express.js**, **TypeScript**, **Prisma ORM**, and **PostgreSQL**. It provides secure authentication, property management, rental requests, Stripe payment integration, reviews, and role-based access control for tenants, landlords, and administrators.
+
+
+# 🚀 Deployment
+
+The project is deployed on **Vercel**.
+
+## 🚀 Live API
+
+### Base URL
+
+```text
+https://rent-nest-chi.vercel.app/
+```
+
+> **Note:** This project is tested using the provided Postman Collection.
+
+---
