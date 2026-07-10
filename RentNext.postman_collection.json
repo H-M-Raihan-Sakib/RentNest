@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "01db985f-77dd-408f-acaf-63d256f63371",
+    "_postman_id": "42ee0d64-0ea2-4e93-bcab-48fce07da306",
     "name": "RentNext",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54714210",
-    "_collection_link": "https://go.postman.co/collection/54714210-01db985f-77dd-408f-acaf-63d256f63371?source=collection_link"
+    "_exporter_id": "53760881",
+    "_collection_link": "https://go.postman.co/collection/53760881-42ee0d64-0ea2-4e93-bcab-48fce07da306?source=collection_link"
   },
   "item": [
     {
@@ -17,7 +17,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"ten2@gmail.com\",\n    \"password\": \"12345\"\n}",
+              "raw": "{\n    \"email\": \"deleted@gmail.com\",\n    \"password\": \"12345\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -55,12 +55,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/auth/login",
-              "protocol": "http",
+              "raw": "https://rent-nest-chi.vercel.app/api/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "rent-nest-chi",
+                "vercel",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "auth",
@@ -85,12 +86,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/auth/login",
-              "protocol": "http",
+              "raw": "https://rent-nest-chi.vercel.app/api/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "rent-nest-chi",
+                "vercel",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "auth",
@@ -115,12 +117,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/auth/login",
-              "protocol": "http",
+              "raw": "https://rent-nest-chi.vercel.app/api/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "rent-nest-chi",
+                "vercel",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "auth",
@@ -167,7 +170,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Testing Duplex 1\",\n  \"description\": \"A fully furnished duplex with all modern facilities.\",\n  \"address\": \"House 15, Road 7, Dhanmondi\",\n  \"location\": \"Dhaka\",\n  \"rentAmount\": 60000,\n  \"categoryName\": \"Hello\"\n}",
+              "raw": "{\n  \"title\": \"Testing\",\n  \"description\": \"A fully furnished duplex with all modern facilities.\",\n  \"address\": \"House 15, Road 7, Dhanmondi\",\n  \"location\": \"Dhaka\",\n  \"rentAmount\": 60000,\n  \"categoryName\": \"Firm House\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -175,12 +178,13 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/landlord/properties",
-              "protocol": "http",
+              "raw": "https://rent-nest-chi.vercel.app/api/landlord/properties",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "rent-nest-chi",
+                "vercel",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "landlord",
@@ -196,7 +200,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/properties?minPrice=10000&isAvailable=false&amenities=[\"WiFi\"]",
+              "raw": "http://localhost:8080/api/properties?amenities=[\"WiFi\"]",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -227,17 +231,16 @@
                 {
                   "key": "minPrice",
                   "value": "10000",
-                  "type": "text"
+                  "disabled": true
                 },
                 {
                   "key": "isAvailable",
                   "value": "false",
-                  "type": "text"
+                  "disabled": true
                 },
                 {
                   "key": "amenities",
-                  "value": "[\"WiFi\"]",
-                  "type": "text"
+                  "value": "[\"WiFi\"]"
                 }
               ]
             }
@@ -250,7 +253,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/properties/5ed4e429-e86b-4ce0-93a9-725efddabe78",
+              "raw": "http://localhost:8080/api/properties/d1fff365-c405-476d-a45e-daa85266e4d2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -259,7 +262,7 @@
               "path": [
                 "api",
                 "properties",
-                "5ed4e429-e86b-4ce0-93a9-725efddabe78"
+                "d1fff365-c405-476d-a45e-daa85266e4d2"
               ]
             }
           },
@@ -301,7 +304,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/landlord/properties/8ab03a6d-a634-47bf-8218-35f9fefde5f6",
+              "raw": "http://localhost:8080/api/landlord/properties/d1fff365-c405-476d-a45e-daa85266e4d2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -311,7 +314,7 @@
                 "api",
                 "landlord",
                 "properties",
-                "8ab03a6d-a634-47bf-8218-35f9fefde5f6"
+                "d1fff365-c405-476d-a45e-daa85266e4d2"
               ]
             }
           },
@@ -323,7 +326,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/landlord/properties/a6c0a93a-fdf8-41ee-b117-cff22586603f",
+              "raw": "http://localhost:8080/api/landlord/properties/d1fff365-c405-476d-a45e-daa85266e4d2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -333,7 +336,7 @@
                 "api",
                 "landlord",
                 "properties",
-                "a6c0a93a-fdf8-41ee-b117-cff22586603f"
+                "d1fff365-c405-476d-a45e-daa85266e4d2"
               ]
             }
           },
@@ -379,7 +382,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"propertyId\": \"1c054893-ad5d-4268-aebe-8074cec18429\",\n    \"moveInDate\": \"01-01-2027\",\n    \"message\": \"I want to rent this property in 50000 TK.\"\n}",
+              "raw": "{\n    \"propertyId\": \"0255a7bf-8962-4711-93e0-07433c0d1245\",\n    \"moveInDate\": \"01-01-2027\",\n    \"message\": \"I want to rent this property\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -443,7 +446,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/landlord/requests/bbaf5c81-e866-4958-aac2-bce12c1a39d8",
+              "raw": "http://localhost:8080/api/landlord/requests/13d58c8a-34c0-42cd-8345-f7f611253a8f",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -453,7 +456,7 @@
                 "api",
                 "landlord",
                 "requests",
-                "bbaf5c81-e866-4958-aac2-bce12c1a39d8"
+                "13d58c8a-34c0-42cd-8345-f7f611253a8f"
               ]
             }
           },
@@ -477,12 +480,13 @@
               "raw": "{\n    \n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/admin/users",
-              "protocol": "http",
+              "raw": "https://rent-nest-chi.vercel.app/api/admin/users",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "rent-nest-chi",
+                "vercel",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "admin",
@@ -565,7 +569,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"rentalRequestId\" :\"bbaf5c81-e866-4958-aac2-bce12c1a39d8\"\n}",
+              "raw": "{\n    \"rentalRequestId\" :\"13d58c8a-34c0-42cd-8345-f7f611253a8f\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -655,7 +659,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"sakib_landlord@gmail.com\",\n    \"name\": \"Sakib_Landlord\",\n    \"password\": \"12345\",\n    \"role\": \"LANDLORD\"\n}",
+              "raw": "{\n    \"email\": \"deleted@gmail.com\",\n    \"name\": \"deleted\",\n    \"password\": \"12345\",\n    \"role\": \"TENANT\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -764,7 +768,22 @@
       "name": "notFound route",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "https://rent-nest-chi.vercel.app/api/v1/auth/login",
+          "protocol": "https",
+          "host": [
+            "rent-nest-chi",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
       },
       "response": []
     }
